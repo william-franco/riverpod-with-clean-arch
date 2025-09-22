@@ -1,6 +1,6 @@
 {
-    "name": "http_riverpod",
-    "short_name": "http_riverpod",
+    "name": "riverpod_with_clean_arch",
+    "short_name": "riverpod_with_clean_arch",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
