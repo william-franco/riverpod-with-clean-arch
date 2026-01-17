@@ -94,7 +94,7 @@ git add . && git commit -m ":construction_worker: Added CI build system." && git
 
 MIT License
 
-Copyright (c) 2025 William Franco
+Copyright (c) 2026 William Franco
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
