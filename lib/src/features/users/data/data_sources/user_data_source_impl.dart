@@ -1,5 +1,5 @@
 import 'package:riverpod_with_clean_arch/src/common/constants/api_constant.dart';
-import 'package:riverpod_with_clean_arch/src/common/results/result.dart';
+import 'package:riverpod_with_clean_arch/src/common/patterns/result_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/connection_service.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/http_service.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/data/data_sources/user_data_source.dart';

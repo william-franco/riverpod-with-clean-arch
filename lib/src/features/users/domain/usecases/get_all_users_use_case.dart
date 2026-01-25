@@ -1,4 +1,4 @@
-import 'package:riverpod_with_clean_arch/src/common/results/result.dart';
+import 'package:riverpod_with_clean_arch/src/common/patterns/result_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/domain/entities/user_entity.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/domain/repositories/user_repository.dart';
 

@@ -39,8 +39,8 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
     _emit(model);
   }
 
-  void _emit(SettingEntity newValue) {
-    _settingEntity = newValue;
+  void _emit(SettingEntity newState) {
+    _settingEntity = newState;
     notifyListeners();
     debugPrint('SettingController: ${settingEntity.isDarkTheme}');
   }
