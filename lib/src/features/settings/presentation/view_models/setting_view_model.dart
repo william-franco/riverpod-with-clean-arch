@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/entities/setting_entity.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/read_theme_use_case.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/update_theme_use_case.dart';
 
-typedef _ViewModel = ChangeNotifier;
+typedef _ViewModel = StateManagement<SettingEntity>;
 
 abstract interface class SettingViewModel extends _ViewModel {
-  SettingEntity get settingEntity;
+  SettingViewModel(super.initialState);
 
   Future<void> getTheme();
   Future<void> changeTheme({required bool isDarkTheme});
@@ -19,12 +20,7 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
   SettingViewModelImpl({
     required this.readThemeUseCase,
     required this.updateThemeUseCase,
-  });
-
-  SettingEntity _settingEntity = SettingEntity();
-
-  @override
-  SettingEntity get settingEntity => _settingEntity;
+  }) : super(SettingEntity());
 
   @override
   Future<void> getTheme() async {
@@ -34,14 +30,13 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
 
   @override
   Future<void> changeTheme({required bool isDarkTheme}) async {
-    final model = _settingEntity.copyWith(isDarkTheme: isDarkTheme);
+    final model = state.copyWith(isDarkTheme: isDarkTheme);
     await updateThemeUseCase.call(isDarkTheme: isDarkTheme);
     _emit(model);
   }
 
   void _emit(SettingEntity newState) {
-    _settingEntity = newState;
-    notifyListeners();
-    debugPrint('SettingController: ${settingEntity.isDarkTheme}');
+    emitState(newState);
+    debugPrint('SettingViewModel: ${state.isDarkTheme}');
   }
 }

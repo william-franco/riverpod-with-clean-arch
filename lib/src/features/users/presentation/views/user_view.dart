@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/app_state_pattern.dart';
+import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_button_widget.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_indicator_widget.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/skeleton_refresh_widget.dart';
@@ -55,10 +56,10 @@ class _UserViewState extends State<UserView> {
           onRefresh: () async {
             await _getAllUsers();
           },
-          child: ListenableBuilder(
-            listenable: widget.userViewModel,
-            builder: (context, child) {
-              return switch (widget.userViewModel.userState) {
+          child: StateBuilderWidget<UserViewModel, UsersState>(
+            viewModel: widget.userViewModel,
+            builder: (context, userState) {
+              return switch (userState) {
                 InitialState() => const Text('List is empty.'),
                 LoadingState() => ListView.builder(
                   itemCount: 10,
