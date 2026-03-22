@@ -3,7 +3,7 @@
 Under construction.
 
 
-## Directory tree
+## Folder architecture
 
 ```
 lib/
@@ -11,14 +11,15 @@ lib/
         ├── common/
         │   ├── constants/
         │   ├── dependency_injectors/
+        │   ├── enums/
         │   ├── extensions/
-        │   ├── results/
+        │   ├── patterns/
         │   ├── routes/
         │   ├── services/
-        │   ├── states/
+        │   ├── state_management/
         │   └── widgets/
         └── features/
-            ├── settings/
+            ├── feature_one/
             │   ├── data/
             │   │   ├── data_sources/
             │   │   ├── models/
@@ -31,7 +32,7 @@ lib/
             │       ├── routes/
             │       ├── view_models/
             │       └── views/
-            └── users/
+            └── feature_two/
                 ├── data/
                 │   ├── data_sources/
                 │   ├── models/
