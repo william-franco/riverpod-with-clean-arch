@@ -17,7 +17,7 @@ class UserRoutes {
       builder: (context, state) {
         return Consumer(
           builder: (context, ref, child) {
-            return UserView(userViewModel: ref.read(userViewModelProv));
+            return UserView(userViewModel: ref.read(userViewModelProvider));
           },
         );
       },

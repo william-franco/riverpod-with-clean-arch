@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 abstract class StateManagement<T> extends ChangeNotifier {
-  T _state;
+  late T _state;
 
-  StateManagement(T initialState) : _state = initialState;
+  StateManagement() {
+    _state = build();
+  }
+
+  @protected
+  T build();
 
   T get state => _state;
 
@@ -11,7 +16,6 @@ abstract class StateManagement<T> extends ChangeNotifier {
   void emitState(T newState) {
     if (identical(_state, newState)) return;
     _state = newState;
-    debugPrint('StateManagement<$T> -> $newState');
     notifyListeners();
   }
 

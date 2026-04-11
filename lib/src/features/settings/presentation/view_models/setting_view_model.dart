@@ -7,8 +7,6 @@ import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/u
 typedef _ViewModel = StateManagement<SettingEntity>;
 
 abstract interface class SettingViewModel extends _ViewModel {
-  SettingViewModel(super.initialState);
-
   Future<void> getTheme();
   Future<void> changeTheme({required bool isDarkTheme});
 }
@@ -20,7 +18,10 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
   SettingViewModelImpl({
     required this.readThemeUseCase,
     required this.updateThemeUseCase,
-  }) : super(SettingEntity());
+  });
+
+  @override
+  SettingEntity build() => SettingEntity();
 
   @override
   Future<void> getTheme() async {

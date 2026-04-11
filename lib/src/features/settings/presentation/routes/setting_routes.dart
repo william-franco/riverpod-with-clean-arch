@@ -15,7 +15,7 @@ class SettingRoutes {
         return Consumer(
           builder: (context, ref, child) {
             return SettingView(
-              settingViewModel: ref.read(settingViewModelProv),
+              settingViewModel: ref.read(settingViewModelProvider),
             );
           },
         );

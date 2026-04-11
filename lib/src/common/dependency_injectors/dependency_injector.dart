@@ -18,75 +18,95 @@ import 'package:riverpod_with_clean_arch/src/features/users/domain/usecases/get_
 import 'package:riverpod_with_clean_arch/src/features/users/presentation/view_models/user_view_model.dart';
 
 // Services
-final connectionService = Provider<ConnectionService>((ref) {
-  final service = ConnectionServiceImpl();
-  Future.microtask(() async {
-    await service.checkConnection();
-  });
-  return service;
+final connectionServiceProvider = Provider<ConnectionService>((ref) {
+  return ConnectionServiceImpl();
 });
 
-final httpService = Provider<HttpService>((ref) {
+final httpServiceProvider = Provider<HttpService>((ref) {
   return HttpServiceImpl();
 });
 
-final storageService = Provider<StorageService>((ref) {
-  final service = StorageServiceImpl();
-  Future.microtask(() async {
-    await service.initStorage();
-  });
-  return service;
+final storageServiceProvider = Provider<StorageService>((ref) {
+  return StorageServiceImpl();
 });
 
 // Data Sources
-final settingDataSource = Provider.autoDispose<SettingDataSource>((ref) {
-  return SettingDataSourceImpl(storageService: ref.watch(storageService));
+final settingDataSourceProvider = Provider.autoDispose<SettingDataSource>((
+  ref,
+) {
+  final storageService = ref.watch(storageServiceProvider);
+  return SettingDataSourceImpl(storageService: storageService);
 });
 
-final userDataSource = Provider.autoDispose<UserDataSource>((ref) {
+final userDataSourceProvider = Provider.autoDispose<UserDataSource>((ref) {
+  final connectionService = ref.watch(connectionServiceProvider);
+  final httpService = ref.watch(httpServiceProvider);
   return UserDataSourceImpl(
-    connectionService: ref.watch(connectionService),
-    httpService: ref.watch(httpService),
+    connectionService: connectionService,
+    httpService: httpService,
   );
 });
 
 // Repositories
-final settingRepository = Provider.autoDispose<SettingRepository>((ref) {
-  return SettingRepositoryImpl(settingDataSource: ref.watch(settingDataSource));
+final settingRepositoryProvider = Provider.autoDispose<SettingRepository>((
+  ref,
+) {
+  final settingDataSource = ref.watch(settingDataSourceProvider);
+  return SettingRepositoryImpl(settingDataSource: settingDataSource);
 });
 
-final userRepository = Provider.autoDispose<UserRepository>((ref) {
-  return UserRepositoryImpl(userDataSource: ref.watch(userDataSource));
+final userRepositoryProvider = Provider.autoDispose<UserRepository>((ref) {
+  final userDataSource = ref.watch(userDataSourceProvider);
+  return UserRepositoryImpl(userDataSource: userDataSource);
 });
 
 // Use Cases
-final readThemeUseCase = Provider.autoDispose<ReadThemeUseCase>((ref) {
-  return ReadThemeUseCaseImpl(settingRepository: ref.watch(settingRepository));
+final readThemeUseCaseProvider = Provider.autoDispose<ReadThemeUseCase>((ref) {
+  final settingRepository = ref.watch(settingRepositoryProvider);
+  return ReadThemeUseCaseImpl(settingRepository: settingRepository);
 });
 
-final updateThemeUseCase = Provider.autoDispose<UpdateThemeUseCase>((ref) {
-  return UpdateThemeUseCaseImpl(
-    settingRepository: ref.watch(settingRepository),
-  );
+final updateThemeUseCaseProvider = Provider.autoDispose<UpdateThemeUseCase>((
+  ref,
+) {
+  final settingRepository = ref.watch(settingRepositoryProvider);
+  return UpdateThemeUseCaseImpl(settingRepository: settingRepository);
 });
 
-final getAllUsersUseCase = Provider.autoDispose<GetAllUsersUseCase>((ref) {
-  return GetAllUsersUseCaseImpl(userRepository: ref.watch(userRepository));
+final getAllUsersUseCaseProvider = Provider.autoDispose<GetAllUsersUseCase>((
+  ref,
+) {
+  final userRepository = ref.watch(userRepositoryProvider);
+  return GetAllUsersUseCaseImpl(userRepository: userRepository);
 });
 
 // ViewModels
-final settingViewModelProv = ChangeNotifierProvider<SettingViewModel>((ref) {
-  final viewModel = SettingViewModelImpl(
-    readThemeUseCase: ref.watch(readThemeUseCase),
-    updateThemeUseCase: ref.watch(updateThemeUseCase),
+final settingViewModelProvider = ChangeNotifierProvider<SettingViewModel>((
+  ref,
+) {
+  final readThemeUseCase = ref.watch(readThemeUseCaseProvider);
+  final updateThemeUseCase = ref.watch(updateThemeUseCaseProvider);
+  return SettingViewModelImpl(
+    readThemeUseCase: readThemeUseCase,
+    updateThemeUseCase: updateThemeUseCase,
   );
-  Future.microtask(() async {
-    await Future.delayed(Duration.zero);
-    await viewModel.getTheme();
-  });
-  return viewModel;
 });
 
-final userViewModelProv = ChangeNotifierProvider<UserViewModel>((ref) {
-  return UserViewModelImpl(getAllUsersUseCase: ref.watch(getAllUsersUseCase));
+final userViewModelProvider = ChangeNotifierProvider<UserViewModel>((ref) {
+  final getAllUsersUseCase = ref.watch(getAllUsersUseCaseProvider);
+  return UserViewModelImpl(getAllUsersUseCase: getAllUsersUseCase);
+});
+
+/// Init dependencies asynchronously.
+final appBootstrapProvider = FutureProvider<void>((ref) async {
+  final storageService = ref.read(storageServiceProvider);
+  final connectionService = ref.read(connectionServiceProvider);
+  final settingViewModel = ref.read(settingViewModelProvider);
+
+  await Future.wait([
+    storageService.initStorage(),
+    connectionService.checkConnection(),
+  ]);
+
+  await settingViewModel.getTheme();
 });
