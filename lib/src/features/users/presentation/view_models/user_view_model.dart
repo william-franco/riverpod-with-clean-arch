@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/app_state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/entities/user_entity.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/usecases/get_all_users_use_case.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
 typedef UsersState = AppState<List<UserEntity>>;
 

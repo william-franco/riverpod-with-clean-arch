@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_with_clean_arch/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:riverpod_with_clean_arch/src/common/routes/routes.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/entities/setting_entity.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/presentation/view_models/setting_view_model.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/settings.dart';
 
 void main() {
   final Routes appRoutes = Routes();

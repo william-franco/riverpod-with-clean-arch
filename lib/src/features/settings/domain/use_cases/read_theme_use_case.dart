@@ -1,5 +1,4 @@
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/entities/setting_entity.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/repositories/setting_repository.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
 abstract interface class ReadThemeUseCase {
   Future<SettingEntity> call();

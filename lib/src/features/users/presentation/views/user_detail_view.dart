@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/entities/user_entity.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
 class UserDetailView extends StatelessWidget {
   final UserEntity userEntity;

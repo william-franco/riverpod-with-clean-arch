@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/entities/setting_entity.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/read_theme_use_case.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/update_theme_use_case.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
 typedef _ViewModel = StateManagement<SettingEntity>;
 

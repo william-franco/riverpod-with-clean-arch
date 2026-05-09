@@ -3,19 +3,8 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/connection_service.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/http_service.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/storage_service.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/data/data_sources/setting_data_source.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/data/data_sources/setting_data_source_impl.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/data/repositories/setting_repository_impl.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/repositories/setting_repository.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/read_theme_use_case.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/usecases/update_theme_use_case.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/presentation/view_models/setting_view_model.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/data/data_sources/user_data_source.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/data/data_sources/user_data_source_impl.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/data/repositories/user_repository_impl.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/repositories/user_repository.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/usecases/get_all_users_use_case.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/presentation/view_models/user_view_model.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/settings.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/users.dart';
 
 // Services
 final connectionServiceProvider = Provider<ConnectionService>((ref) {

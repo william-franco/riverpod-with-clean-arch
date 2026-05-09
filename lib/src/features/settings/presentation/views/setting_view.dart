@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/entities/setting_entity.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/presentation/view_models/setting_view_model.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/presentation/presentation.dart';
 
 class SettingView extends StatelessWidget {
   final SettingViewModel settingViewModel;

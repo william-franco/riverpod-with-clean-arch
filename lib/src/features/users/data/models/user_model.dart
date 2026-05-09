@@ -1,4 +1,4 @@
-import 'package:riverpod_with_clean_arch/src/features/users/domain/entities/user_entity.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
 class UserModel extends UserEntity {
   @override

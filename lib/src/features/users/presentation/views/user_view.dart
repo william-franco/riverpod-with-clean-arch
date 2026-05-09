@@ -5,9 +5,8 @@ import 'package:riverpod_with_clean_arch/src/common/state_management/state_manag
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_button_widget.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_indicator_widget.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/skeleton_refresh_widget.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/presentation/routes/setting_routes.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/presentation/routes/user_routes.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/presentation/view_models/user_view_model.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/settings.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/presentation/presentation.dart';
 
 class UserView extends StatefulWidget {
   final UserViewModel userViewModel;
