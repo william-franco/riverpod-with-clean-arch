@@ -19,7 +19,7 @@ class UserDataSourceImpl implements UserDataSource {
       await connectionService.checkConnection();
 
       if (!connectionService.isConnected) {
-        return ErrorResult(error: Exception('Device not connected.'));
+        return ErrorResult(error: UserException('Device not connected.'));
       }
 
       final result = await httpService.getData(path: ApiConstant.users);
@@ -33,10 +33,10 @@ class UserDataSourceImpl implements UserDataSource {
       }
 
       return ErrorResult(
-        error: Exception('Failed to fetch users: ${result.statusCode}'),
+        error: UserException('Failed to fetch users: ${result.statusCode}'),
       );
     } catch (error) {
-      return ErrorResult(error: Exception('Unexpected error: $error'));
+      return ErrorResult(error: UserException('Unexpected error: $error'));
     }
   }
 }

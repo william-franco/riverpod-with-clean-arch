@@ -86,7 +86,7 @@ class _UserViewState extends State<UserView> {
                     );
                   },
                 ),
-                ErrorState(message: final message) => Text(message),
+                ErrorState(error: final e) => Text('Error: ${e.message}'),
               };
             },
           ),

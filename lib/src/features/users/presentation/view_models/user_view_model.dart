@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/app_state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/data/data.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
-typedef UsersState = AppState<List<UserEntity>>;
+typedef UsersState = AppState<List<UserEntity>, UserException>;
 
 typedef _ViewModel = StateManagement<UsersState>;
 
@@ -27,7 +28,7 @@ class UserViewModelImpl extends _ViewModel implements UserViewModel {
 
     final state = result.fold<UsersState>(
       onSuccess: (value) => SuccessState(data: value),
-      onError: (error) => ErrorState(message: '$error'),
+      onError: (error) => ErrorState(error: error),
     );
 
     _emit(state);

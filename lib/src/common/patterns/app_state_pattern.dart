@@ -1,23 +1,23 @@
-sealed class AppState<T> {
+sealed class AppState<S, E extends Exception> {
   const AppState();
 }
 
-final class InitialState<T> extends AppState<T> {
+final class InitialState<S, E extends Exception> extends AppState<S, E> {
   const InitialState();
 }
 
-final class LoadingState<T> extends AppState<T> {
+final class LoadingState<S, E extends Exception> extends AppState<S, E> {
   const LoadingState();
 }
 
-final class SuccessState<T> extends AppState<T> {
-  final T data;
+final class SuccessState<S, E extends Exception> extends AppState<S, E> {
+  final S data;
 
   const SuccessState({required this.data});
 }
 
-final class ErrorState<T> extends AppState<T> {
-  final String message;
+final class ErrorState<S, E extends Exception> extends AppState<S, E> {
+  final E error;
 
-  const ErrorState({required this.message});
+  const ErrorState({required this.error});
 }
