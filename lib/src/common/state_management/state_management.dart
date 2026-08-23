@@ -14,7 +14,7 @@ abstract class StateManagement<T> extends ChangeNotifier {
 
   @protected
   void emitState(T newState) {
-    if (identical(_state, newState)) return;
+    if (_state == newState) return;
     _state = newState;
     notifyListeners();
   }
