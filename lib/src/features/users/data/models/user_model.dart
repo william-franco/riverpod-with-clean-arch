@@ -1,24 +1,15 @@
 import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
 class UserModel extends UserEntity {
-  final int? id;
-  final String? name;
-  final String? username;
-  final String? email;
-  final Address? address;
-  final String? phone;
-  final String? website;
-  final Company? company;
-
   UserModel({
-    this.id,
-    this.name,
-    this.username,
-    this.email,
-    this.address,
-    this.phone,
-    this.website,
-    this.company,
+    super.id,
+    super.name,
+    super.username,
+    super.email,
+    super.address,
+    super.phone,
+    super.website,
+    super.company,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -37,21 +28,15 @@ class UserModel extends UserEntity {
     'name': name,
     'username': username,
     'email': email,
-    'address': address?.toJson(),
+    'address': (address as Address?)?.toJson(),
     'phone': phone,
     'website': website,
-    'company': company?.toJson(),
+    'company': (company as Company?)?.toJson(),
   };
 }
 
 class Address extends AddressEntity {
-  final String? street;
-  final String? suite;
-  final String? city;
-  final String? zipcode;
-  final Geo? geo;
-
-  Address({this.street, this.suite, this.city, this.zipcode, this.geo});
+  Address({super.street, super.suite, super.city, super.zipcode, super.geo});
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
     street: json['street'],
@@ -66,15 +51,12 @@ class Address extends AddressEntity {
     'suite': suite,
     'city': city,
     'zipcode': zipcode,
-    'geo': geo?.toJson(),
+    'geo': (geo as Geo?)?.toJson(),
   };
 }
 
 class Geo extends GeoEntity {
-  final String? lat;
-  final String? lng;
-
-  Geo({this.lat, this.lng});
+  Geo({super.lat, super.lng});
 
   factory Geo.fromJson(Map<String, dynamic> json) =>
       Geo(lat: json['lat'], lng: json['lng']);
@@ -83,11 +65,7 @@ class Geo extends GeoEntity {
 }
 
 class Company extends CompanyEntity {
-  final String? name;
-  final String? catchPhrase;
-  final String? bs;
-
-  Company({this.name, this.catchPhrase, this.bs});
+  Company({super.name, super.catchPhrase, super.bs});
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
     name: json['name'],

@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/result_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/data/data.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
-import 'package:riverpod_with_clean_arch/src/features/users/domain/use_cases/get_all_users_use_case.dart';
 
 import '../../users_mocks.mocks.dart';
 

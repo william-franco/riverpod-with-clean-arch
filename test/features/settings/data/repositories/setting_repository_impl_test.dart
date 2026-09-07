@@ -2,8 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/result_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/data/data.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/data/repositories/setting_repository_impl.dart';
-import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
 import '../../settings_mocks.mocks.dart';
 
