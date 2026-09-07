@@ -1,5 +1,5 @@
-sealed class Result<S, E extends Exception> {
-  const Result();
+sealed class ResultPattern<S, E extends Exception> {
+  const ResultPattern();
 
   T fold<T>({
     required T Function(S value) onSuccess,
@@ -14,13 +14,13 @@ sealed class Result<S, E extends Exception> {
   }
 }
 
-final class SuccessResult<S, E extends Exception> extends Result<S, E> {
+final class SuccessResult<S, E extends Exception> extends ResultPattern<S, E> {
   final S value;
 
   const SuccessResult({required this.value});
 }
 
-final class ErrorResult<S, E extends Exception> extends Result<S, E> {
+final class ErrorResult<S, E extends Exception> extends ResultPattern<S, E> {
   final E error;
 
   const ErrorResult({required this.error});

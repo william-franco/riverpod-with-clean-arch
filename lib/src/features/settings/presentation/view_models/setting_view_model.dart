@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
+import 'package:riverpod_with_clean_arch/src/features/settings/data/data.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
-typedef _ViewModel = StateManagement<SettingEntity>;
+typedef SettingsState = StatePattern<SettingEntity, SettingException>;
+
+typedef _ViewModel = StateManagement<SettingsState>;
 
 abstract interface class SettingViewModel extends _ViewModel {
   Future<void> getTheme();
@@ -19,23 +23,38 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
   });
 
   @override
-  SettingEntity build() => SettingEntity();
+  SettingsState build() => InitialState();
 
   @override
   Future<void> getTheme() async {
-    final model = await readThemeUseCase.call();
-    _emit(model);
+    _emit(LoadingState());
+
+    final result = await readThemeUseCase.call();
+
+    final state = result.fold<SettingsState>(
+      onSuccess: (value) => SuccessState(data: value),
+      onError: (error) => ErrorState(error: error),
+    );
+
+    _emit(state);
   }
 
   @override
   Future<void> changeTheme({required bool isDarkTheme}) async {
-    final model = state.copyWith(isDarkTheme: isDarkTheme);
-    await updateThemeUseCase.call(isDarkTheme: isDarkTheme);
-    _emit(model);
+    _emit(LoadingState());
+
+    final result = await updateThemeUseCase.call(isDarkTheme: isDarkTheme);
+
+    final state = result.fold<SettingsState>(
+      onSuccess: (_) => SuccessState(data: SettingEntity(isDarkTheme: isDarkTheme)),
+      onError: (error) => ErrorState(error: error),
+    );
+
+    _emit(state);
   }
 
-  void _emit(SettingEntity newState) {
+  void _emit(SettingsState newState) {
     emitState(newState);
-    debugPrint('SettingViewModel: ${state.isDarkTheme}');
+    debugPrint('SettingViewModel: $state');
   }
 }

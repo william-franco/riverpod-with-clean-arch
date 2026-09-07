@@ -10,11 +10,5 @@ class GetAllUsersUseCaseImpl implements GetAllUsersUseCase {
   GetAllUsersUseCaseImpl({required this.userRepository});
 
   @override
-  Future<UserResult> call() async {
-    try {
-      return await userRepository.findAllUsers();
-    } catch (error) {
-      throw Exception('GetAllUsersUseCase: $error');
-    }
-  }
+  Future<UserResult> call() => userRepository.findAllUsers();
 }

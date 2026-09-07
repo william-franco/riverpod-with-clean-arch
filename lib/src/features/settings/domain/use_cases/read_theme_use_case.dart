@@ -1,7 +1,7 @@
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
 abstract interface class ReadThemeUseCase {
-  Future<SettingEntity> call();
+  Future<SettingResult> call();
 }
 
 class ReadThemeUseCaseImpl implements ReadThemeUseCase {
@@ -10,11 +10,5 @@ class ReadThemeUseCaseImpl implements ReadThemeUseCase {
   ReadThemeUseCaseImpl({required this.settingRepository});
 
   @override
-  Future<SettingEntity> call() async {
-    try {
-      return await settingRepository.readTheme();
-    } catch (error) {
-      throw Exception('ReadThemeUseCase: $error');
-    }
-  }
+  Future<SettingResult> call() => settingRepository.readTheme();
 }

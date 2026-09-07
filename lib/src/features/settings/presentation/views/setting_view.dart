@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/presentation/presentation.dart';
 
-class SettingView extends StatelessWidget {
+class SettingView extends StatefulWidget {
   final SettingViewModel settingViewModel;
 
   const SettingView({super.key, required this.settingViewModel});
+
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await widget.settingViewModel.getTheme();
+    });
+  }
 
   void _showAboutDialog(BuildContext context) {
     showAboutDialog(
@@ -18,6 +32,11 @@ class SettingView extends StatelessWidget {
       applicationLegalese: '\u{a9} 2025 William Franco',
     );
   }
+
+  bool _isDarkTheme(SettingsState state) => switch (state) {
+        SuccessState(data: final setting) => setting.isDarkTheme,
+        _ => false,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +57,15 @@ class SettingView extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
-              trailing: StateBuilderWidget<SettingViewModel, SettingEntity>(
-                viewModel: settingViewModel,
-                builder: (context, settingModel) {
+              trailing: StateBuilderWidget<SettingViewModel, SettingsState>(
+                viewModel: widget.settingViewModel,
+                builder: (context, settingState) {
                   return Switch(
-                    value: settingModel.isDarkTheme,
+                    value: _isDarkTheme(settingState),
                     onChanged: (bool isDarkTheme) {
-                      settingViewModel.changeTheme(isDarkTheme: isDarkTheme);
+                      widget.settingViewModel.changeTheme(
+                        isDarkTheme: isDarkTheme,
+                      );
                     },
                   );
                 },

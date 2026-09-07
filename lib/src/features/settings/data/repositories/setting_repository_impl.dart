@@ -7,20 +7,9 @@ class SettingRepositoryImpl implements SettingRepository {
   SettingRepositoryImpl({required this.settingDataSource});
 
   @override
-  Future<SettingModel> readTheme() async {
-    try {
-      return await settingDataSource.readTheme();
-    } catch (error) {
-      throw Exception('SettingRepository: $error');
-    }
-  }
+  Future<SettingResult> readTheme() => settingDataSource.readTheme();
 
   @override
-  Future<void> updateTheme({required bool isDarkTheme}) async {
-    try {
-      await settingDataSource.updateTheme(isDarkTheme: isDarkTheme);
-    } catch (error) {
-      throw Exception('SettingRepository: $error');
-    }
-  }
+  Future<SettingUpdateResult> updateTheme({required bool isDarkTheme}) =>
+      settingDataSource.updateTheme(isDarkTheme: isDarkTheme);
 }

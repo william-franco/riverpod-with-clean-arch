@@ -1,4 +1,4 @@
-import 'package:riverpod_with_clean_arch/src/features/users/data/data.dart';
+import 'package:riverpod_with_clean_arch/src/features/users/data/data_sources/user_data_source.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/domain/domain.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -7,11 +7,5 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.userDataSource});
 
   @override
-  Future<UserResult> findAllUsers() async {
-    try {
-      return await userDataSource.findAllUsers();
-    } catch (error) {
-      throw Exception('SettingRepository: $error');
-    }
-  }
+  Future<UserResult> findAllUsers() => userDataSource.findAllUsers();
 }

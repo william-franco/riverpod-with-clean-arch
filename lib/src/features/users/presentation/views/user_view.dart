@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_with_clean_arch/src/common/patterns/app_state_pattern.dart';
+import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_button_widget.dart';
 import 'package:riverpod_with_clean_arch/src/common/widgets/refresh_indicator_widget.dart';

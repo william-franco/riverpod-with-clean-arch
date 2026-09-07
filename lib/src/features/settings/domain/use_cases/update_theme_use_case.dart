@@ -1,7 +1,7 @@
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart';
 
 abstract interface class UpdateThemeUseCase {
-  Future<void> call({required bool isDarkTheme});
+  Future<SettingUpdateResult> call({required bool isDarkTheme});
 }
 
 class UpdateThemeUseCaseImpl implements UpdateThemeUseCase {
@@ -10,11 +10,6 @@ class UpdateThemeUseCaseImpl implements UpdateThemeUseCase {
   UpdateThemeUseCaseImpl({required this.settingRepository});
 
   @override
-  Future<void> call({required bool isDarkTheme}) async {
-    try {
-      await settingRepository.updateTheme(isDarkTheme: isDarkTheme);
-    } catch (error) {
-      throw Exception('UpdateThemeUseCase: $error');
-    }
-  }
+  Future<SettingUpdateResult> call({required bool isDarkTheme}) =>
+      settingRepository.updateTheme(isDarkTheme: isDarkTheme);
 }
