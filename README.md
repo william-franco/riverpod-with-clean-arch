@@ -1,12 +1,47 @@
 # Riverpod With Clean Arch
 
-Clean Architecture example using Riverpod.
+Clean Architecture counterpart to the Provider clean-arch project, using Riverpod for composition.
+
+Presentation view models are Riverpod-managed; domain use cases stay free of Flutter imports.
+
+Data sources map remote and local failures into typed `ResultPattern` errors for the UI.
+
+Users and settings demonstrate end-to-end flows with tests at each layer.
+
+Bootstrap providers initialize routing and theme before the widget tree mounts.
+
+## Structure
+
+```mermaid
+flowchart TB
+  subgraph presentation [presentation]
+    UserRoute --> UserViewModel
+    SettingRoute --> SettingViewModel
+    RiverpodProviders --> UserViewModel
+    RiverpodProviders --> SettingViewModel
+  end
+  UserViewModel --> GetAllUsersUseCase
+  SettingViewModel --> UpdateThemeUseCase
+  subgraph domain [domain]
+    GetAllUsersUseCase --> UserRepositoryPort[UserRepository interface]
+    UpdateThemeUseCase --> SettingRepositoryPort[SettingRepository interface]
+  end
+  subgraph data [data]
+    UserRepositoryPort --> UserRepositoryImpl
+    UserRepositoryImpl --> UserDataSource
+    UserDataSource --> HttpService
+    SettingRepositoryPort --> SettingRepositoryImpl
+    SettingRepositoryImpl --> SettingDataSource
+    SettingDataSource --> SharedPreferences
+  end
+  HttpService --> JsonPlaceholder[JSONPlaceholder API]
+```
 
 ## Stack
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.2 |
+| Dart SDK | ^3.13.3 |
 | connectivity_plus | ^7.0.0 |
 | cupertino_icons | ^1.0.8 |
 | dio | ^5.9.2 |
@@ -14,6 +49,8 @@ Clean Architecture example using Riverpod.
 | go_router | ^17.2.3 |
 | shared_preferences | ^2.5.5 |
 | flutter_lints | ^6.0.0 |
+| build_runner | ^2.15.0 |
+| mockito | ^5.6.4 |
 | Android Gradle Plugin | 9.1.0 |
 | Kotlin | 2.4.0 |
 | compileSdk / targetSdk | 36 |
