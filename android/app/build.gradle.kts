@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "br.com.williamfranco.riverpod_with_clean_arch"
     compileSdk = 36
-    ndkVersion = "29.0.14206865"
+    ndkVersion = "30.0.16248370"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_25
