@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## 2026-11-07
+
+- Commit: Added url_launcher and a GitHub button to the About dialog.
+  - Added the url_launcher ^6.3.3 dependency and a GitHub button inside the About dialog that opens https://github.com/william-franco.
+- Commit: Updated project architecture under src/common/design.
+  - Reorganized the shared design layer under src/common/design to keep the UI structure consistent.
+
 ## 2026-11-01
 
 - Commit: Updated Dart SDK to ^3.13.7 and documented Gradle 9.3.1.
