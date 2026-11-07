@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
@@ -29,6 +30,19 @@ class _SettingViewState extends State<SettingView> {
       applicationName: 'Riverpod With Clean Arch',
       applicationVersion: 'Version 1.0.0',
       applicationLegalese: '\u{a9} 2025 William Franco',
+      children: <Widget>[
+        const SizedBox(height: 16),
+        TextButton.icon(
+          icon: const Icon(Icons.code),
+          label: const Text('GitHub'),
+          onPressed: () {
+            launchUrl(
+              Uri.parse('https://github.com/william-franco'),
+              mode: LaunchMode.externalApplication,
+            );
+          },
+        ),
+      ],
     );
   }
 
