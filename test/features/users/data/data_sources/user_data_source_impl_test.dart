@@ -54,7 +54,10 @@ void main() {
 
       expect(result, isA<SuccessResult<List<UserModel>, UserException>>());
       expect(
-        (result as SuccessResult<List<UserModel>, UserException>).value.first.name,
+        (result as SuccessResult<List<UserModel>, UserException>)
+            .value
+            .first
+            .name,
         'Leanne Graham',
       );
     });

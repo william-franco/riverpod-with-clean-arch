@@ -36,9 +36,8 @@ void main() {
     });
 
     test('emits LoadingState then SuccessState on success', () async {
-      when(mockGetAllUsersUseCase.call()).thenAnswer(
-        (_) async => SuccessResult(value: tUsers),
-      );
+      when(mockGetAllUsersUseCase.call())
+          .thenAnswer((_) async => SuccessResult(value: tUsers));
 
       final states = <UsersState>[];
       viewModel.addListener(() => states.add(viewModel.state));
@@ -51,9 +50,8 @@ void main() {
     });
 
     test('emits LoadingState then ErrorState on failure', () async {
-      when(mockGetAllUsersUseCase.call()).thenAnswer(
-        (_) async => ErrorResult(error: UserException('failed')),
-      );
+      when(mockGetAllUsersUseCase.call())
+          .thenAnswer((_) async => ErrorResult(error: UserException('failed')));
 
       final states = <UsersState>[];
       viewModel.addListener(() => states.add(viewModel.state));

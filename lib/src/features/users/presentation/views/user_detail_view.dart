@@ -41,9 +41,8 @@ class UserDetailView extends StatelessWidget {
                   const SizedBox(height: 4.0),
                   Text(
                     '@${userEntity.username}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.titleMedium
+                        ?.copyWith(color: Colors.grey),
                   ),
                   const SizedBox(height: 16.0),
                   Text(

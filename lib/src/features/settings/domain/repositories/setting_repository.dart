@@ -8,4 +8,5 @@ typedef SettingUpdateResult = ResultPattern<void, SettingException>;
 abstract interface class SettingRepository {
   Future<SettingResult> readTheme();
   Future<SettingUpdateResult> updateTheme({required bool isDarkTheme});
+  Future<void> openUrl({required Uri url});
 }

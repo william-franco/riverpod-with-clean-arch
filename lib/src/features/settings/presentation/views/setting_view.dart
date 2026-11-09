@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
@@ -36,9 +35,8 @@ class _SettingViewState extends State<SettingView> {
           icon: const Icon(Icons.code),
           label: const Text('GitHub'),
           onPressed: () {
-            launchUrl(
-              Uri.parse('https://github.com/william-franco'),
-              mode: LaunchMode.externalApplication,
+            widget.settingViewModel.openUrl(
+              url: Uri.parse('https://github.com/william-franco'),
             );
           },
         ),
@@ -47,9 +45,9 @@ class _SettingViewState extends State<SettingView> {
   }
 
   bool _isDarkTheme(SettingsState state) => switch (state) {
-        SuccessState(data: final setting) => setting.isDarkTheme,
-        _ => false,
-      };
+    SuccessState(data: final setting) => setting.isDarkTheme,
+    _ => false,
+  };
 
   @override
   Widget build(BuildContext context) {

@@ -11,19 +11,25 @@ typedef _ViewModel = StateManagement<SettingsState>;
 abstract interface class SettingViewModel extends _ViewModel {
   Future<void> getTheme();
   Future<void> changeTheme({required bool isDarkTheme});
+  Future<void> openUrl({required Uri url});
 }
 
 class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
   final ReadThemeUseCase readThemeUseCase;
   final UpdateThemeUseCase updateThemeUseCase;
+  final OpenUrlUseCase openUrlUseCase;
 
   SettingViewModelImpl({
     required this.readThemeUseCase,
     required this.updateThemeUseCase,
+    required this.openUrlUseCase,
   });
 
   @override
   SettingsState build() => InitialState();
+
+  @override
+  Future<void> openUrl({required Uri url}) => openUrlUseCase.call(url: url);
 
   @override
   Future<void> getTheme() async {
@@ -46,7 +52,8 @@ class SettingViewModelImpl extends _ViewModel implements SettingViewModel {
     final result = await updateThemeUseCase.call(isDarkTheme: isDarkTheme);
 
     final state = result.fold<SettingsState>(
-      onSuccess: (_) => SuccessState(data: SettingEntity(isDarkTheme: isDarkTheme)),
+      onSuccess: (_) =>
+          SuccessState(data: SettingEntity(isDarkTheme: isDarkTheme)),
       onError: (error) => ErrorState(error: error),
     );
 

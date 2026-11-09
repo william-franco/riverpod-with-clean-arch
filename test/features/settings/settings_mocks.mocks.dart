@@ -12,6 +12,8 @@ import 'package:riverpod_with_clean_arch/src/common/patterns/result_pattern.dart
     as _i5;
 import 'package:riverpod_with_clean_arch/src/common/services/storage_service.dart'
     as _i2;
+import 'package:riverpod_with_clean_arch/src/common/services/url_launcher_service.dart'
+    as _i8;
 import 'package:riverpod_with_clean_arch/src/features/settings/data/data.dart'
     as _i4;
 import 'package:riverpod_with_clean_arch/src/features/settings/domain/domain.dart'
@@ -149,6 +151,13 @@ class MockSettingRepository extends _i1.Mock implements _i7.SettingRepository {
           ),
         ),
   ) as _i3.Future<_i5.ResultPattern<void, _i4.SettingException>>);
+
+  @override
+  _i3.Future<void> openUrl({required Uri? url}) => (super.noSuchMethod(
+    Invocation.method(#openUrl, [], {#url: url}),
+    returnValue: _i3.Future<void>.value(),
+    returnValueForMissingStub: _i3.Future<void>.value(),
+  ) as _i3.Future<void>);
 }
 
 /// A class which mocks [ReadThemeUseCase].
@@ -196,4 +205,37 @@ class MockUpdateThemeUseCase extends _i1.Mock
           ),
         ),
   ) as _i3.Future<_i5.ResultPattern<void, _i4.SettingException>>);
+}
+
+/// A class which mocks [OpenUrlUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOpenUrlUseCase extends _i1.Mock implements _i7.OpenUrlUseCase {
+  MockOpenUrlUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<void> call({required Uri? url}) => (super.noSuchMethod(
+    Invocation.method(#call, [], {#url: url}),
+    returnValue: _i3.Future<void>.value(),
+    returnValueForMissingStub: _i3.Future<void>.value(),
+  ) as _i3.Future<void>);
+}
+
+/// A class which mocks [UrlLauncherService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUrlLauncherService extends _i1.Mock
+    implements _i8.UrlLauncherService {
+  MockUrlLauncherService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<void> openUrl({required Uri? url}) => (super.noSuchMethod(
+    Invocation.method(#openUrl, [], {#url: url}),
+    returnValue: _i3.Future<void>.value(),
+    returnValueForMissingStub: _i3.Future<void>.value(),
+  ) as _i3.Future<void>);
 }

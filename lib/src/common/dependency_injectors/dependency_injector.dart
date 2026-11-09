@@ -3,10 +3,15 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/connection_service.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/http_service.dart';
 import 'package:riverpod_with_clean_arch/src/common/services/storage_service.dart';
+import 'package:riverpod_with_clean_arch/src/common/services/url_launcher_service.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/settings.dart';
 import 'package:riverpod_with_clean_arch/src/features/users/users.dart';
 
 // Services
+final urlLauncherServiceProvider = Provider<UrlLauncherService>((ref) {
+  return UrlLauncherServiceImpl();
+});
+
 final connectionServiceProvider = Provider<ConnectionService>((ref) {
   return ConnectionServiceImpl();
 });
@@ -41,7 +46,11 @@ final settingRepositoryProvider = Provider.autoDispose<SettingRepository>((
   ref,
 ) {
   final settingDataSource = ref.watch(settingDataSourceProvider);
-  return SettingRepositoryImpl(settingDataSource: settingDataSource);
+  final urlLauncherService = ref.watch(urlLauncherServiceProvider);
+  return SettingRepositoryImpl(
+    settingDataSource: settingDataSource,
+    urlLauncherService: urlLauncherService,
+  );
 });
 
 final userRepositoryProvider = Provider.autoDispose<UserRepository>((ref) {
@@ -69,15 +78,22 @@ final getAllUsersUseCaseProvider = Provider.autoDispose<GetAllUsersUseCase>((
   return GetAllUsersUseCaseImpl(userRepository: userRepository);
 });
 
+final openUrlUseCaseProvider = Provider.autoDispose<OpenUrlUseCase>((ref) {
+  final settingRepository = ref.watch(settingRepositoryProvider);
+  return OpenUrlUseCaseImpl(settingRepository: settingRepository);
+});
+
 // ViewModels
 final settingViewModelProvider = ChangeNotifierProvider<SettingViewModel>((
   ref,
 ) {
   final readThemeUseCase = ref.watch(readThemeUseCaseProvider);
   final updateThemeUseCase = ref.watch(updateThemeUseCaseProvider);
+  final openUrlUseCase = ref.watch(openUrlUseCaseProvider);
   return SettingViewModelImpl(
     readThemeUseCase: readThemeUseCase,
     updateThemeUseCase: updateThemeUseCase,
+    openUrlUseCase: openUrlUseCase,
   );
 });
 

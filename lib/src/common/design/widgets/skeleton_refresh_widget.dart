@@ -21,14 +21,10 @@ class SkeletonRefreshWidget extends StatelessWidget {
       width: width,
       height: height,
       color: Colors.transparent,
-      margin: const EdgeInsets.symmetric(
-        vertical: 8.0,
-      ),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Card(
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             Container(
@@ -49,15 +45,9 @@ class SkeletonRefreshWidget extends StatelessWidget {
                     width: 300.0,
                     height: 10.0,
                     color: highlightColor,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 4.0,
-                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 4.0),
                   ),
-                  Container(
-                    width: 100.0,
-                    height: 10.0,
-                    color: highlightColor,
-                  ),
+                  Container(width: 100.0, height: 10.0, color: highlightColor),
                 ],
               ),
             ),

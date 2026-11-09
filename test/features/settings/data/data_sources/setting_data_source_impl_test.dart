@@ -23,7 +23,9 @@ void main() {
 
       expect(result, isA<SuccessResult<SettingModel, SettingException>>());
       expect(
-        (result as SuccessResult<SettingModel, SettingException>).value.isDarkTheme,
+        (result as SuccessResult<SettingModel, SettingException>)
+            .value
+            .isDarkTheme,
         isTrue,
       );
     });
@@ -38,10 +40,12 @@ void main() {
     });
 
     test('returns SuccessResult when storage write succeeds', () async {
-      when(mockStorageService.setBoolValue(
-        key: anyNamed('key'),
-        value: anyNamed('value'),
-      )).thenAnswer((_) async {});
+      when(
+        mockStorageService.setBoolValue(
+          key: anyNamed('key'),
+          value: anyNamed('value'),
+        ),
+      ).thenAnswer((_) async {});
 
       final result = await dataSource.updateTheme(isDarkTheme: true);
 
@@ -49,10 +53,12 @@ void main() {
     });
 
     test('returns ErrorResult when storage write throws', () async {
-      when(mockStorageService.setBoolValue(
-        key: anyNamed('key'),
-        value: anyNamed('value'),
-      )).thenThrow(Exception('storage error'));
+      when(
+        mockStorageService.setBoolValue(
+          key: anyNamed('key'),
+          value: anyNamed('value'),
+        ),
+      ).thenThrow(Exception('storage error'));
 
       final result = await dataSource.updateTheme(isDarkTheme: false);
 

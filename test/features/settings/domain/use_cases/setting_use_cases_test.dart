@@ -46,13 +46,16 @@ void main() {
 
     setUp(() {
       mockSettingRepository = MockSettingRepository();
-      useCase = UpdateThemeUseCaseImpl(settingRepository: mockSettingRepository);
+      useCase = UpdateThemeUseCaseImpl(
+        settingRepository: mockSettingRepository,
+      );
     });
 
     test('delegates call to repository', () async {
       final expected = SuccessResult<void, SettingException>(value: null);
-      when(mockSettingRepository.updateTheme(isDarkTheme: anyNamed('isDarkTheme')))
-          .thenAnswer((_) async => expected);
+      when(
+        mockSettingRepository.updateTheme(isDarkTheme: anyNamed('isDarkTheme')),
+      ).thenAnswer((_) async => expected);
 
       final result = await useCase.call(isDarkTheme: true);
 

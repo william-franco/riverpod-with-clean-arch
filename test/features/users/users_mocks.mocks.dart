@@ -273,6 +273,13 @@ class MockSettingRepository extends _i1.Mock implements _i11.SettingRepository {
           ),
         ),
   ) as _i3.Future<_i7.ResultPattern<void, _i10.SettingException>>);
+
+  @override
+  _i3.Future<void> openUrl({required Uri? url}) => (super.noSuchMethod(
+    Invocation.method(#openUrl, [], {#url: url}),
+    returnValue: _i3.Future<void>.value(),
+    returnValueForMissingStub: _i3.Future<void>.value(),
+  ) as _i3.Future<void>);
 }
 
 /// A class which mocks [ReadThemeUseCase].

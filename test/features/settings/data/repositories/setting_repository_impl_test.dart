@@ -8,6 +8,7 @@ import '../../settings_mocks.mocks.dart';
 void main() {
   group('SettingRepositoryImpl', () {
     late MockSettingDataSource mockSettingDataSource;
+    late MockUrlLauncherService mockUrlLauncherService;
     late SettingRepositoryImpl repository;
 
     setUpAll(() {
@@ -23,7 +24,11 @@ void main() {
 
     setUp(() {
       mockSettingDataSource = MockSettingDataSource();
-      repository = SettingRepositoryImpl(settingDataSource: mockSettingDataSource);
+      mockUrlLauncherService = MockUrlLauncherService();
+      repository = SettingRepositoryImpl(
+        settingDataSource: mockSettingDataSource,
+        urlLauncherService: mockUrlLauncherService,
+      );
     });
 
     test('delegates readTheme to data source', () async {
@@ -40,13 +45,42 @@ void main() {
 
     test('delegates updateTheme to data source', () async {
       final expected = SuccessResult<void, SettingException>(value: null);
-      when(mockSettingDataSource.updateTheme(isDarkTheme: anyNamed('isDarkTheme')))
-          .thenAnswer((_) async => expected);
+      when(
+        mockSettingDataSource.updateTheme(isDarkTheme: anyNamed('isDarkTheme')),
+      ).thenAnswer((_) async => expected);
 
       final result = await repository.updateTheme(isDarkTheme: false);
 
       expect(result, expected);
       verify(mockSettingDataSource.updateTheme(isDarkTheme: false)).called(1);
+    });
+    group('openUrl', () {
+      test('delegates url to urlLauncherService', () async {
+        // arrange
+        final url = Uri.parse('https://github.com/william-franco');
+        when(mockUrlLauncherService.openUrl(url: anyNamed('url')))
+            .thenAnswer((_) async {});
+
+        // act
+        await repository.openUrl(url: url);
+
+        // assert
+        verify(mockUrlLauncherService.openUrl(url: url)).called(1);
+      });
+
+      test('throws when urlLauncherService throws', () async {
+        // arrange
+        when(mockUrlLauncherService.openUrl(url: anyNamed('url')))
+            .thenThrow(Exception('Launch failure'));
+
+        // act & assert
+        expect(
+          () => repository.openUrl(
+            url: Uri.parse('https://github.com/william-franco'),
+          ),
+          throwsException,
+        );
+      });
     });
   });
 }

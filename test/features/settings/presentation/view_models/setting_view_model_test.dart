@@ -12,6 +12,7 @@ void main() {
   group('SettingViewModelImpl', () {
     late MockReadThemeUseCase mockReadThemeUseCase;
     late MockUpdateThemeUseCase mockUpdateThemeUseCase;
+    late MockOpenUrlUseCase mockOpenUrlUseCase;
     late SettingViewModelImpl viewModel;
 
     setUpAll(() {
@@ -29,18 +30,18 @@ void main() {
         SuccessResult<void, SettingException>(value: null),
       );
       provideDummy<SettingUpdateResult>(
-        ErrorResult<void, SettingException>(
-          error: SettingException('dummy'),
-        ),
+        ErrorResult<void, SettingException>(error: SettingException('dummy')),
       );
     });
 
     setUp(() {
       mockReadThemeUseCase = MockReadThemeUseCase();
       mockUpdateThemeUseCase = MockUpdateThemeUseCase();
+      mockOpenUrlUseCase = MockOpenUrlUseCase();
       viewModel = SettingViewModelImpl(
         readThemeUseCase: mockReadThemeUseCase,
         updateThemeUseCase: mockUpdateThemeUseCase,
+        openUrlUseCase: mockOpenUrlUseCase,
       );
     });
 
@@ -66,9 +67,9 @@ void main() {
     });
 
     test('getTheme emits LoadingState then ErrorState on failure', () async {
-      when(mockReadThemeUseCase.call()).thenAnswer(
-        (_) async => ErrorResult(error: SettingException('failed')),
-      );
+      when(
+        mockReadThemeUseCase.call(),
+      ).thenAnswer((_) async => ErrorResult(error: SettingException('failed')));
 
       final states = <SettingsState>[];
       viewModel.addListener(() => states.add(viewModel.state));
@@ -79,17 +80,34 @@ void main() {
       expect(states[1], isA<ErrorState>());
     });
 
-    test('changeTheme emits LoadingState then SuccessState on success', () async {
-      when(mockUpdateThemeUseCase.call(isDarkTheme: anyNamed('isDarkTheme')))
-          .thenAnswer((_) async => SuccessResult(value: null));
+    test(
+      'changeTheme emits LoadingState then SuccessState on success',
+      () async {
+        when(mockUpdateThemeUseCase.call(isDarkTheme: anyNamed('isDarkTheme')))
+            .thenAnswer((_) async => SuccessResult(value: null));
 
-      final states = <SettingsState>[];
-      viewModel.addListener(() => states.add(viewModel.state));
+        final states = <SettingsState>[];
+        viewModel.addListener(() => states.add(viewModel.state));
 
-      await viewModel.changeTheme(isDarkTheme: true);
+        await viewModel.changeTheme(isDarkTheme: true);
 
-      expect(states.length, 2);
-      expect(states[1], isA<SuccessState>());
+        expect(states.length, 2);
+        expect(states[1], isA<SuccessState>());
+      },
+    );
+    group('openUrl', () {
+      test('delegates url to openUrlUseCase', () async {
+        // arrange
+        final url = Uri.parse('https://github.com/william-franco');
+        when(mockOpenUrlUseCase.call(url: anyNamed('url')))
+            .thenAnswer((_) async {});
+
+        // act
+        await viewModel.openUrl(url: url);
+
+        // assert
+        verify(mockOpenUrlUseCase.call(url: url)).called(1);
+      });
     });
   });
 }
