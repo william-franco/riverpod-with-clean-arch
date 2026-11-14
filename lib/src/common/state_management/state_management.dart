@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 abstract class StateManagement<T> extends ChangeNotifier {
   late T _state;

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_with_clean_arch/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';

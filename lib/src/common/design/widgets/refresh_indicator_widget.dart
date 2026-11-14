@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:riverpod_with_clean_arch/src/common/extensions/platform_extension.dart';
 
 typedef OnRefreshCallback = Future<void> Function();

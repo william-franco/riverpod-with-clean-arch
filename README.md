@@ -41,7 +41,8 @@ flowchart TB
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.7 |
+| Dart SDK | ^3.14.0 |
+| material_ui | ^1.11.0 |
 | connectivity_plus | ^7.0.0 |
 | cupertino_icons | ^1.0.8 |
 | dio | ^5.11.1 |
@@ -51,9 +52,9 @@ flowchart TB
 | flutter_lints | ^6.0.0 |
 | build_runner | ^2.16.2 |
 | mockito | ^5.8.1 |
-| Gradle | 9.3.1 |
-| Android Gradle Plugin | 9.1.0 |
-| Kotlin | 2.4.0 |
+| Gradle | 9.5.0 |
+| Android Gradle Plugin | 9.3.1 |
+| Kotlin | 2.4.20 |
 | NDK | 30.0.16248370 |
 | compileSdk / targetSdk | 36 |
 | minSdk | 29 |

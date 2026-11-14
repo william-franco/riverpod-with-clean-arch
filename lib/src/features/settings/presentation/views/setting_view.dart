@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart';
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
@@ -28,7 +28,7 @@ class _SettingViewState extends State<SettingView> {
       applicationIcon: const FlutterLogo(),
       applicationName: 'Riverpod With Clean Arch',
       applicationVersion: 'Version 1.0.0',
-      applicationLegalese: '\u{a9} 2025 William Franco',
+      applicationLegalese: '\u{a9} 2026 William Franco',
       children: <Widget>[
         const SizedBox(height: 16),
         TextButton.icon(
