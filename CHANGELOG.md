@@ -5,6 +5,8 @@ All notable changes to this project are documented in this file.
 ## 2026-11-22
 
 - Users→Settings integration_test resilient to CI network (no JSONPlaceholder required).
+- Commit: Fix resilient Users→Settings Linux E2E on CI.
+  - Poll for Users screen shell and open Settings without requiring JSONPlaceholder.
 - Linux CI E2E runs under xvfb-run for headless GitHub Actions runners.
 
 - Commit: Added Linux E2E integration tests and updated CI for desktop E2E.
