@@ -5,17 +5,32 @@ import 'package:riverpod_with_clean_arch/main.dart' as app;
 
 /// CI: navigation smoke does not require JSONPlaceholder / live network.
 
-bool _usersShellReady() {
-  return find.text('Users').evaluate().isNotEmpty ||
+bool _usersBodySettled() {
+  return find.textContaining('Error:').evaluate().isNotEmpty ||
       find.text('List is empty.').evaluate().isNotEmpty ||
-      find.textContaining('Error:').evaluate().isNotEmpty ||
       find.byType(ListTile).evaluate().isNotEmpty;
 }
 
-Future<void> _waitForUsersShell(WidgetTester tester) async {
+Future<void> _waitForUsersSettled(WidgetTester tester) async {
+  for (var i = 0; i < 90; i++) {
+    if (_usersBodySettled()) return;
+    await tester.pump(const Duration(milliseconds: 500));
+  }
+}
+
+bool _usersScreenInteractable() {
+  if (find.text('Users').evaluate().isEmpty) return false;
+  final settings = find.descendant(
+    of: find.byType(AppBar),
+    matching: find.byIcon(Icons.settings_outlined),
+  );
+  return settings.evaluate().isNotEmpty;
+}
+
+Future<void> _waitForRouteTitle(WidgetTester tester, String title) async {
   for (var i = 0; i < 30; i++) {
-    if (_usersShellReady()) return;
-    await tester.pump(const Duration(seconds: 1));
+    if (find.text(title).evaluate().isNotEmpty) return;
+    await tester.pump(const Duration(milliseconds: 200));
   }
 }
 
@@ -23,15 +38,24 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('opens settings from users screen', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1280, 800));
     app.main();
-    await _waitForUsersShell(tester);
-    expect(_usersShellReady(), isTrue);
+    await _waitForUsersSettled(tester);
+    if (!_usersBodySettled()) {
+      for (var i = 0; i < 30; i++) {
+        if (_usersScreenInteractable()) break;
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+    }
+    expect(_usersScreenInteractable(), isTrue);
 
-    final settings = find.byIcon(Icons.settings_outlined);
-    expect(settings, findsWidgets);
+    final settings = find.descendant(
+      of: find.byType(AppBar),
+      matching: find.byIcon(Icons.settings_outlined),
+    );
     await tester.ensureVisible(settings.first);
     await tester.tap(settings.first);
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await _waitForRouteTitle(tester, 'Settings');
 
     expect(find.text('Settings'), findsOneWidget);
   });

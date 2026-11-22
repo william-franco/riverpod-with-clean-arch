@@ -4,23 +4,10 @@ import 'package:riverpod_with_clean_arch/src/common/patterns/state_pattern.dart'
 import 'package:riverpod_with_clean_arch/src/common/state_management/state_management.dart';
 import 'package:riverpod_with_clean_arch/src/features/settings/presentation/presentation.dart';
 
-class SettingView extends StatefulWidget {
+class SettingView extends StatelessWidget {
   final SettingViewModel settingViewModel;
 
   const SettingView({super.key, required this.settingViewModel});
-
-  @override
-  State<SettingView> createState() => _SettingViewState();
-}
-
-class _SettingViewState extends State<SettingView> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await widget.settingViewModel.getTheme();
-    });
-  }
 
   void _showAboutDialog(BuildContext context) {
     showAboutDialog(
@@ -35,7 +22,7 @@ class _SettingViewState extends State<SettingView> {
           icon: const Icon(Icons.code),
           label: const Text('GitHub'),
           onPressed: () {
-            widget.settingViewModel.openUrl(
+            settingViewModel.openUrl(
               url: Uri.parse('https://github.com/william-franco'),
             );
           },
@@ -69,12 +56,12 @@ class _SettingViewState extends State<SettingView> {
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
               trailing: StateBuilderWidget<SettingViewModel, SettingsState>(
-                viewModel: widget.settingViewModel,
+                viewModel: settingViewModel,
                 builder: (context, settingState) {
                   return Switch(
                     value: _isDarkTheme(settingState),
                     onChanged: (bool isDarkTheme) {
-                      widget.settingViewModel.changeTheme(
+                      settingViewModel.changeTheme(
                         isDarkTheme: isDarkTheme,
                       );
                     },

@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## 2026-11-22
 
+- SettingView no longer reloads theme on open (bootstrap only); stabilizes go_router on E2E.
+- Wait for users list settle and pump loops for Settings route on Linux CI E2E.
+- Commit: Stabilize Users→Settings Linux E2E on Provider apps.
+  - Avoid pumpAndSettle during loading skeletons; tap settings in AppBar after Error/success.
 - Users→Settings integration_test resilient to CI network (no JSONPlaceholder required).
 - Commit: Fix resilient Users→Settings Linux E2E on CI.
   - Poll for Users screen shell and open Settings without requiring JSONPlaceholder.
