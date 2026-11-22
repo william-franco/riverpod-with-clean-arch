@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 2026-11-22
 
+- Linux CI E2E runs under xvfb-run for headless GitHub Actions runners.
+
 - Commit: Added Linux E2E integration tests and updated CI for desktop E2E.
   - integration_test smoke flow and Linux desktop target in CI.
 - Commit: Use material_ui in integration_test to fix Flutter analyze deprecation.
