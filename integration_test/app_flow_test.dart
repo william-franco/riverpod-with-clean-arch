@@ -5,6 +5,8 @@ import 'package:riverpod_with_clean_arch/main.dart' as app;
 
 /// CI: navigation smoke does not require JSONPlaceholder / live network.
 
+const _settingsKey = Key('e2e_open_settings');
+
 bool _usersBodySettled() {
   return find.textContaining('Error:').evaluate().isNotEmpty ||
       find.text('List is empty.').evaluate().isNotEmpty ||
@@ -18,43 +20,32 @@ Future<void> _waitForUsersSettled(WidgetTester tester) async {
   }
 }
 
-bool _usersScreenInteractable() {
-  if (find.text('Users').evaluate().isEmpty) return false;
-  final settings = find.descendant(
-    of: find.byType(AppBar),
-    matching: find.byIcon(Icons.settings_outlined),
-  );
-  return settings.evaluate().isNotEmpty;
-}
-
 Future<void> _waitForRouteTitle(WidgetTester tester, String title) async {
-  for (var i = 0; i < 30; i++) {
+  for (var i = 0; i < 60; i++) {
     if (find.text(title).evaluate().isNotEmpty) return;
-    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(milliseconds: 300));
   }
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   testWidgets('opens settings from users screen', (tester) async {
     await tester.binding.setSurfaceSize(const Size(1280, 800));
     app.main();
-    await _waitForUsersSettled(tester);
-    if (!_usersBodySettled()) {
-      for (var i = 0; i < 30; i++) {
-        if (_usersScreenInteractable()) break;
-        await tester.pump(const Duration(milliseconds: 500));
-      }
-    }
-    expect(_usersScreenInteractable(), isTrue);
-
-    final settings = find.descendant(
-      of: find.byType(AppBar),
-      matching: find.byIcon(Icons.settings_outlined),
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(seconds: 2)),
     );
-    await tester.ensureVisible(settings.first);
-    await tester.tap(settings.first);
+    await _waitForUsersSettled(tester);
+
+    final settings = find.byKey(_settingsKey);
+    expect(settings, findsOneWidget);
+    await tester.ensureVisible(settings);
+    await tester.tap(settings);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 800)),
+    );
     await _waitForRouteTitle(tester, 'Settings');
 
     expect(find.text('Settings'), findsOneWidget);

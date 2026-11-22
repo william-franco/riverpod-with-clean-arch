@@ -4,6 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 2026-11-22
 
+- E2E Key on settings button, scrollable Error/Initial list, fullyLive and runAsync for Linux navigation.
+- Commit: Fix Provider Linux E2E navigation to Settings on CI.
+  - UserView ListView for RefreshIndicator; integration_test taps e2e_open_settings with real async delays.
 - SettingView no longer reloads theme on open (bootstrap only); stabilizes go_router on E2E.
 - Wait for users list settle and pump loops for Settings route on Linux CI E2E.
 - Commit: Stabilize Users→Settings Linux E2E on Provider apps.

@@ -43,6 +43,7 @@ class _UserViewState extends State<UserView> {
             },
           ),
           IconButton(
+            key: const Key('e2e_open_settings'),
             icon: const Icon(Icons.settings_outlined),
             onPressed: () {
               context.push(SettingRoutes.setting);
@@ -59,7 +60,9 @@ class _UserViewState extends State<UserView> {
             viewModel: widget.userViewModel,
             builder: (context, userState) {
               return switch (userState) {
-                InitialState() => const Text('List is empty.'),
+                InitialState() => ListView(
+                  children: const [Text('List is empty.')],
+                ),
                 LoadingState() => ListView.builder(
                   itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
@@ -86,7 +89,9 @@ class _UserViewState extends State<UserView> {
                     );
                   },
                 ),
-                ErrorState(error: final e) => Text('Error: ${e.message}'),
+                ErrorState(error: final e) => ListView(
+                  children: [Text('Error: ${e.message}')],
+                ),
               };
             },
           ),
